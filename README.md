@@ -179,5 +179,3 @@ MoviesAppTest/
 ## 🏷️ Tags
 
 `#Selenium` `#TestNG` `#AutomationTesting` `#MoviesApp
-
-Would you like me to generate a **matching `pom.xml`** (with Selenium + TestNG + Cucumber dependencies) that 
