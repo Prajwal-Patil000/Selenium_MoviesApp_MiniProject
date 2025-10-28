@@ -66,9 +66,10 @@ MoviesAppTest/
 * Search Page
 * Movie Details Page
 
-> You can create additional helper classes as needed.
 
----
+
+
+
 
 ## 🧪 Test Scenarios
 
@@ -178,6 +179,5 @@ MoviesAppTest/
 ## 🏷️ Tags
 
 `#Selenium` `#TestNG` `#AutomationTesting` `#MoviesApp
----
 
 Would you like me to generate a **matching `pom.xml`** (with Selenium + TestNG + Cucumber dependencies) that 
