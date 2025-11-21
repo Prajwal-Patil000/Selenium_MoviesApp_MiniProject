@@ -24,7 +24,7 @@ public class MovieDetailsPageTest {
     @BeforeMethod
     public void setUp() {
         // Ensure this path matches your local chromedriver path
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\ADMIN\\Downloads\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\vaish\\Downloads\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -110,3 +110,4 @@ public class MovieDetailsPageTest {
         if (driver != null) driver.quit();
     }
 }
+
