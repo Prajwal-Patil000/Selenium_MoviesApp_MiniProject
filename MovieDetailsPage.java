@@ -15,17 +15,28 @@ public class MovieDetailsPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    @FindBy(css = "div[class*='details'], div[class*='background']")
+    // ✅ FIXED: The background is usually on the main container in this app
+    @FindBy(className = "movie-details-container")
     WebElement backgroundImage;
 
-    @FindBy(css = "h1[class*='title'], h2[class*='heading']")
+    // ✅ FIXED: Specific class for title
+    @FindBy(className = "movie-title")
     WebElement movieTitle;
 
-    @FindBy(css = "p[class*='description']")
+    // ✅ FIXED: Specific class for overview/description
+    @FindBy(className = "movie-overview")
     WebElement movieDescription;
 
-    @FindBy(css = "div[class*='similar'] img")
+    // ✅ FIXED: Locating images inside the similar movies list
+    @FindBy(xpath = "//ul[contains(@class, 'similar-movies-list-container')]//img")
     List<WebElement> similarMovies;
+
+    // ✅ NEW: Added Elements as per instruction
+    @FindBy(className = "movie-review-container")
+    WebElement movieReviewContainer;
+
+    @FindBy(className = "detailed-movie-categories-container")
+    WebElement detailedMovieCategoriesContainer;
 
     public MovieDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -38,6 +49,7 @@ public class MovieDetailsPage {
             wait.until(ExpectedConditions.visibilityOf(backgroundImage));
             return backgroundImage.isDisplayed();
         } catch (Exception e) {
+            System.out.println("Debug: Background Element not found or invisible.");
             return false;
         }
     }
@@ -64,6 +76,24 @@ public class MovieDetailsPage {
         try {
             wait.until(ExpectedConditions.visibilityOfAllElements(similarMovies));
             return !similarMovies.isEmpty();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isMovieReviewContainerDisplayed() {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(movieReviewContainer));
+            return movieReviewContainer.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isDetailedMovieCategoriesDisplayed() {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(detailedMovieCategoriesContainer));
+            return detailedMovieCategoriesContainer.isDisplayed();
         } catch (Exception e) {
             return false;
         }
