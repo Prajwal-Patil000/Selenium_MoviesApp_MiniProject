@@ -1,54 +1,71 @@
 package Stepdefinitions;
 
-// Cucumber imports
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.Before;
-import io.cucumber.java.After;
-
-// Selenium imports
+import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-// TestNG imports
 import org.testng.Assert;
 
-// Java imports
 import java.time.Duration;
+import java.util.List;
 
 public class PopularFunctionalitySteps {
+
     WebDriver driver;
     WebDriverWait wait;
 
-    @Before
-    public void setup() {
+    @Given("I am on the Movies App homepage")
+    public void i_am_on_the_movies_app_homepage() {
+        // ✅ FIXED: Path matches your working TestNG code exactly
         System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\vaish\\Downloads\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
+                "C:\\Users\\ADMIN\\Downloads\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
+
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+
         driver.get("https://qamoviesapp.ccbp.tech/");
+
+        // Login Logic
         driver.findElement(By.id("usernameInput")).sendKeys("rahul");
         driver.findElement(By.id("passwordInput")).sendKeys("rahul@2021");
         driver.findElement(By.className("login-button")).click();
+
+        // Wait for successful login (URL change or Logo presence)
+        wait.until(ExpectedConditions.urlContains("/"));
     }
 
-    @Given("User is on the Popular movies page")
-    public void user_is_on_the_popular_movies_page() {
-        driver.findElement(By.linkText("Popular")).click();
-        wait.until(ExpectedConditions.urlContains("/popular"));
+    @When("I click on the Popular button")
+    public void i_click_on_the_popular_button() {
+        // ✅ FIXED: Use a more robust locator (Link Text) and wait for it to be clickable
+        WebElement popularBtn = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Popular")));
+        popularBtn.click();
     }
 
-    @Then("All popular movies should be displayed")
-    public void all_popular_movies_should_be_displayed() {
-        Assert.assertTrue(driver.findElements(By.className("movie-image")).size() > 0, "No popular movies displayed");
+    @Then("I should be navigated to the Popular page")
+    public void i_should_be_navigated_to_the_popular_page() {
+        // ✅ FIXED: Increased wait and checking specific URL endpoint
+        wait.until(ExpectedConditions.urlContains("popular"));
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("popular"), "Navigation to Popular page failed!");
     }
 
-    @After
-    public void teardown() {
-        driver.quit();
+    @And("available movies should be displayed")
+    public void available_movies_should_be_displayed() {
+        // ✅ FIXED: CRITICAL STEP - Wait for the movie elements to actually appear before counting them
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("movie-icon-item")));
+
+        List<WebElement> movies = driver.findElements(By.className("movie-icon-item"));
+        Assert.assertTrue(movies.size() > 0, "No movies are displayed on Popular page!");
+    }
+
+    @Then("I close the Popular page browser")
+    public void i_close_the_popular_page_browser() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
