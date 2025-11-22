@@ -19,7 +19,7 @@ public class HeaderFunctionalitySteps {
     @Before
     public void setup() {
         System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\ADMIN\\Downloads\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
+                "C:\\Users\\vaish\\Downloads\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -100,3 +100,4 @@ public class HeaderFunctionalitySteps {
         }
     }
 }
+
