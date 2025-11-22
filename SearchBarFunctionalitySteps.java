@@ -24,7 +24,7 @@ public class SearchBarFunctionalitySteps {
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver",
-                "C:\\Users\\ADMIN\\Downloads\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
+                "C:\\Users\\vaish\\Downloads\\chromedriver-win32\\chromedriver-win32\\chromedriver.exe");
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -128,3 +128,4 @@ public class SearchBarFunctionalitySteps {
         System.out.println("✅ Correctly displayed no results message for invalid query.");
     }
 }
+
